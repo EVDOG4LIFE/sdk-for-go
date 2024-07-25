@@ -15,18 +15,20 @@ jobs:
         with:
           github-token: ${{ secrets.GH_AUTO_CLOSE_PR_TOKEN }}
           script: |
-            const org = 'Appwrite'; 
+            const org = 'Evdogs'; 
+            let isMember = 'non-member';
             try {
               await github.rest.orgs.checkMembershipForUser({
                 org: org,
                 username: context.payload.pull_request.user.login
               });
               console.log('PR author is a core member. Keeping PR open.');
-              return 'member';
+              isMember = 'member';
             } catch (error) {
               console.log('PR author is not a core member.');
-              return 'non-member';
             }
+            return { result: isMember };
+          result-encoding: string
 
       - name: Comment on PR
         if: steps.check-membership.outputs.result == 'non-member'
