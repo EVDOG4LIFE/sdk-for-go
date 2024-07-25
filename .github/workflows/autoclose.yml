@@ -32,10 +32,10 @@ jobs:
 
       - name: Set member output
         id: set-output
-        run: echo "::set-output name=result::${{ steps.check-membership.outputs.result }}"
+        run: echo "result=${{ steps.check-membership.outputs.result }}" >> $GITHUB_ENV
 
       - name: Comment on PR
-        if: steps.set-output.outputs.result == 'non-member'
+        if: env.result == 'non-member'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -49,7 +49,7 @@ jobs:
             console.log('Comment added to PR.');
 
       - name: Close PR
-        if: steps.set-output.outputs.result == 'non-member'
+        if: env.result == 'non-member'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
