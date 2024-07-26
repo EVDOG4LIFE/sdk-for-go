@@ -7,4 +7,6 @@ on:
 jobs:
   auto_close:
     uses: Evdogs/.github/.github/workflows/autoclose.yml@main
-
+    secrets:
+      GH_AUTO_CLOSE_PR_TOKEN: ${{ secrets.GH_AUTO_CLOSE_PR_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
