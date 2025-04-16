@@ -11,7 +11,7 @@ type Avatars struct {
 
 func NewAvatars(clt Client) Avatars {  
     service := Avatars{
-		client: clt,
+		client: clt, 
 	}
 
     return service
